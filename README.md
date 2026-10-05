@@ -1,22 +1,47 @@
-# MarioAI Character Universe v4.1 — Button Fix
+# MarioAI Character Universe
 
-This build fixes the previous v4 UI event system. All controls use explicit JavaScript event listeners and buttons no longer depend on inline click handlers.
-
-## Upload
-Put `index.html` at the root of your GitHub Pages repository.
+A deployable AI character chat app built with a Node.js + Express backend and a static frontend.
 
 ## Features
 - Character creation and switching
-- Local persistent character state
-- Chat + Enter-to-send
-- HP/damage/heal
-- Bond/emotion state
-- Manual long-term memory
-- Cinematic scene UI
-- AI configuration
-- Supabase connection dialog
-- Cloud character save/load
-- Mobile responsive layout
+- Local persistence in browser storage
+- Cinematic story prompts
+- Memory support
+- Optional AI chat and image generation via server environment variables
+- Ready for deployment on Render, Railway, or any Node host
 
-## Important
-For real online AI, use a secure Supabase Edge Function rather than exposing a provider secret in GitHub Pages.
+## Run locally
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Start the server:
+   ```bash
+   npm start
+   ```
+
+3. Open the app at:
+   ```bash
+   http://localhost:3000
+   ```
+
+## Deploy to Render or Railway
+
+- Push this repo to GitHub
+- Connect the repo to Render or Railway
+- Set the start command to:
+  ```bash
+  npm start
+  ```
+- Add environment variables:
+  ```bash
+  AI_API_KEY=
+  AI_BASE_URL=https://api.openai.com/v1
+  AI_CHAT_MODEL=
+  AI_IMAGE_MODEL=
+  PORT=3000
+  ```
+
+If AI keys are not configured, the app runs in demo mode and returns a simulated character reply.

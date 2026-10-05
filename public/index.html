@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MarioAI Character Universe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo">✦</div>
+          <div>
+            <div class="eyebrow">MARIOAI</div>
+            <h1>Character Universe</h1>
+          </div>
+        </div>
+
+        <div class="panel-header">
+          <span>Characters</span>
+          <button id="newCharacterBtn" class="mini-button">+ New</button>
+        </div>
+
+        <div id="characterList" class="character-list"></div>
+      </aside>
+
+      <main class="main-panel">
+        <div id="emptyState" class="empty-state hidden">
+          <div class="empty-box">
+            <div class="logo large">✦</div>
+            <h2>No character selected</h2>
+            <p>Create a personality and start a cinematic story.</p>
+            <button id="emptyCreateBtn" class="primary-button">Create Character</button>
+          </div>
+        </div>
+
+        <div id="chatPanel" class="chat-panel hidden">
+          <div class="chat-header">
+            <div class="avatar" id="avatar">A</div>
+            <div>
+              <h2 id="characterName">Character</h2>
+              <div id="characterMeta" class="meta">Fantasy · Female · Mature</div>
+            </div>
+            <div class="status-badges">
+              <span id="aliveBadge" class="badge alive">ALIVE</span>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <small>Emotion</small>
+              <strong id="emotionValue">Calm</strong>
+            </div>
+            <div class="stat-box">
+              <small>HP</small>
+              <strong id="hpValue">100/100</strong>
+            </div>
+            <div class="stat-box">
+              <small>Bond</small>
+              <strong id="bondValue">0/100</strong>
+            </div>
+          </div>
+
+          <div class="scene-box">
+            <div class="scene-image" id="sceneImage">Scene</div>
+            <div class="scene-caption" id="sceneCaption">The world is waiting for a new story.</div>
+          </div>
+
+          <div id="messages" class="messages"></div>
+
+          <div class="action-row">
+            <button id="cinematicBtn" class="secondary-button">🎬 Cinematic</button>
+            <button id="imageBtn" class="secondary-button">🖼 Scene</button>
+            <button id="damageBtn" class="secondary-button warn">⚔ Damage</button>
+            <button id="healBtn" class="secondary-button success">💚 Heal</button>
+            <button id="memoryBtn" class="secondary-button">🧠 Remember</button>
+          </div>
+
+          <div class="composer">
+            <textarea id="chatInput" placeholder="Talk naturally with your character..." maxlength="10000"></textarea>
+            <button id="sendBtn" class="primary-button">Send</button>
+          </div>
+
+          <div class="footer-meta">
+            <span id="charMode">Demo mode</span>
+            <span id="charCounter">0/10000</span>
+          </div>
+        </div>
+      </main>
+
+      <aside class="right-panel">
+        <div class="panel-block">
+          <h3>Mind & State</h3>
+          <div id="statePanel" class="state-panel"></div>
+        </div>
+
+        <div class="panel-block">
+          <h3>Long-Term Memory</h3>
+          <div id="memoryList" class="memory-list"></div>
+        </div>
+      </aside>
+    </div>
+
+    <dialog id="characterDialog">
+      <form method="dialog" id="characterForm">
+        <div class="dialog-header">
+          <h3>Create Character</h3>
+          <button type="button" class="close-button" data-close="characterDialog">×</button>
+        </div>
+
+        <label>
+          <span>Name</span>
+          <input id="charNameInput" required maxlength="40" />
+        </label>
+
+        <div class="two-col">
+          <label>
+            <span>Gender</span>
+            <select id="charGender">
+              <option>Female</option>
+              <option>Male</option>
+              <option>Nonbinary</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Genre</span>
+            <select id="charGenre">
+              <option>Fantasy</option>
+              <option>Anime</option>
+              <option>Sci-Fi</option>
+              <option>Cyberpunk</option>
+              <option>Romance</option>
+              <option>Dark Fantasy</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          <span>Personality</span>
+          <textarea id="charPersonality" rows="3" placeholder="Warm, brave, curious, emotionally expressive..."></textarea>
+        </label>
+
+        <label>
+          <span>Backstory</span>
+          <textarea id="charBackstory" rows="3" placeholder="A lost princess wandering through a ruined city..."></textarea>
+        </label>
+
+        <div class="two-col">
+          <label>
+            <span>HP</span>
+            <input id="charHp" type="number" min="1" max="200" value="100" />
+          </label>
+
+          <label>
+            <span>Maturity</span>
+            <select id="charMaturity">
+              <option>Mild</option>
+              <option selected>Mature</option>
+              <option>Adult</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="dialog-actions">
+          <button type="button" class="secondary-button" data-close="characterDialog">Cancel</button>
+          <button type="submit" class="primary-button">Save</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
