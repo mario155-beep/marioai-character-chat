@@ -1,45 +1,88 @@
-# MarioAI Smart Character Universe — No npm
+# MarioAI Character Universe v4 — Smart AI Edition
 
-This version is designed for GitHub Pages. Upload `index.html`.
+A GitHub Pages-friendly AI character platform with no npm/Node requirement for the frontend.
 
-## What is improved
+## What v4 adds
 
-- Natural AI prompting designed to reduce repetitive replies
-- Persistent character personality/backstory
-- Long-term memories
-- Emotion + relationship/bond
-- HP, damage, healing and permanent death state
-- Cinematic story mode
-- Auto cinematic image generation after AI replies (when image API is configured)
-- Animated cinematic image presentation (pan/zoom + particles)
-- Character creator
-- 10,000-character response architecture
-- Optional online Supabase database
-- Anonymous Supabase account per browser
-- No Node, no npm, no terminal required for the frontend
+- Natural character chat with persistent persona/context
+- Durable character saves in Supabase
+- Cloud memory sync + remote character loading
+- HP, bond, emotion and alive/dead state
+- Long-term memory extraction and manual memory
+- Character creator with personality/backstory/genre/maturity
+- Cinematic scene mode
+- AI image generation hook
+- Auto-scene mode
+- Responsive Android/mobile UI
+- PWA-ready frontend structure
+- Secure Supabase Edge Function AI proxy
+- Provider key stays server-side instead of GitHub Pages
+- Direct API mode remains available for testing only
 
-## Online database
+## 1. GitHub Pages
 
-1. Create a Supabase project.
-2. Enable Anonymous Sign-Ins.
-3. Open SQL Editor.
-4. Run `database.sql`.
-5. Copy the Project URL and **Publishable Key** (not the secret key).
-6. In the website, click **☁ Database** and paste those values.
-7. The app saves character state/memory to `character_saves`.
+Upload/replace `index.html` in the root of your repository.
 
-Supabase publishable keys are intended for browser applications; RLS must protect the tables. Never put a Supabase secret key/service-role key in this website.
+GitHub → Settings → Pages → Deploy from a branch → `main` → `/ (root)` → Save.
 
-## AI and images
+## 2. Supabase database
 
-Click **⚙ AI** and enter an OpenAI-compatible API endpoint, chat model, image model and API key.
+Open your Supabase project → SQL Editor → paste `database.sql` → Run.
 
-For OpenAI, current image models include GPT Image models. Image generation is a metered API capability, so "unlimited" cannot mean unlimited free generations.
+Anonymous Auth must be enabled because the frontend uses anonymous sessions for a simple account without requiring email.
 
-IMPORTANT: because this is a GitHub Pages-only app, an AI provider secret entered in the browser is not truly secret. For a public production app, use a server/Edge Function proxy and keep the provider key there.
+## 3. Supabase URL + Publishable Key
 
-## GitHub Pages
+In Supabase Dashboard, use Project Settings → API Keys. Copy the Project URL and Publishable Key. The publishable key is intended for browser/client code when Row Level Security is configured correctly. Never put a Secret Key in `index.html`.
 
-Repository → Settings → Pages → Deploy from a branch → main → /(root) → Save.
+Enter those two values under **Database** in MarioAI.
 
-The site should load `index.html` from the repository root.
+## 4. Secure AI backend — recommended
+
+In Supabase Dashboard:
+
+1. Open **Edge Functions**.
+2. Choose **Deploy a new function → Via Editor**.
+3. Create a function named `mario-ai`.
+4. Replace the editor code with `supabase/functions/mario-ai/index.ts`.
+5. Deploy the function.
+6. Open the function's Secrets / Environment Variables.
+7. Add:
+
+`AI_PROVIDER_KEY` = your AI provider secret key
+
+Optional:
+
+`AI_BASE_URL` = `https://api.openai.com/v1`
+`AI_MODEL` = your selected chat model
+
+The secret belongs in Supabase, not GitHub. Supabase documents production Edge Function secrets in the Dashboard and exposes them to the function runtime through environment variables.
+
+Your function URL will look like:
+
+`https://YOUR_PROJECT_ID.supabase.co/functions/v1/mario-ai`
+
+Put that URL in MarioAI → **AI Settings → Secure Edge Function URL**.
+
+Leave the browser API-key field empty when using the secure function.
+
+## 5. Why the secure function is important
+
+A GitHub Pages site is public. Any provider key placed in frontend JavaScript can be inspected by users. The Edge Function keeps the provider secret server-side and lets Supabase authenticate the caller.
+
+## 6. Image generation
+
+The frontend includes a configurable image-generation hook. Set your image model/provider according to the provider you actually use. Image/video providers have their own billing and usage limits; “unlimited” in the UI cannot mean unlimited provider usage.
+
+## 7. Important limits
+
+This project can keep a large persistent memory record in Supabase, but an AI model still has a finite context window. MarioAI therefore sends recent conversation plus durable memory instead of pretending the model has literally infinite context.
+
+True generated video/character motion requires a video/animation provider. The built-in cinematic layer provides animated presentation effects; it is not falsely presented as AI-generated video.
+
+## 8. Security
+
+- Browser: Publishable key only.
+- Server/Edge Function: Secret provider key.
+- Keep RLS enabled.
+- Do not commit `.env` files or secret keys.
