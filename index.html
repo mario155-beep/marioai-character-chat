@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b18">
+<title>MarioAI Character Chat</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="logo">✦</div><div><div class="eyebrow">MARIOAI</div><h1>Character Universe</h1><div class="sub">Memory • Emotion • HP • Cinematic Story</div></div></div>
+    <div class="topActions"><button id="newBtn" class="ghost">＋ New Character</button></div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel characters">
+      <div class="sectionTitle">Characters</div>
+      <div id="characterList"></div>
+      <button id="createBtn" class="primary full">Create Character</button>
+    </aside>
+
+    <section class="panel chat">
+      <div id="empty" class="empty">
+        <div class="orb">✦</div>
+        <h2>Create your first character</h2>
+        <p>Build a personality, story, HP, emotions and memories.</p>
+      </div>
+
+      <div id="chatView" hidden>
+        <div class="charHead">
+          <div class="avatar" id="avatar">?</div>
+          <div class="grow">
+            <h2 id="charName">Character</h2>
+            <div id="charDesc" class="muted"></div>
+            <div class="bars">
+              <div><span>HP</span><div class="bar"><i id="hpBar"></i></div><b id="hpText">100/100</b></div>
+              <div><span>Bond</span><div class="bar"><i id="bondBar"></i></div><b id="bondText">0/100</b></div>
+            </div>
+          </div>
+          <div class="stateBox">
+            <span id="aliveBadge">ALIVE</span>
+            <strong id="emotion">Calm</strong>
+          </div>
+        </div>
+
+        <div id="messages" class="messages"></div>
+
+        <div class="controls">
+          <button id="cinematicBtn" class="chip">🎬 Cinematic</button>
+          <button id="damageBtn" class="chip danger">⚔ Damage</button>
+          <button id="healBtn" class="chip">💚 Heal</button>
+          <button id="memoryBtn" class="chip">🧠 Memory</button>
+          <button id="imageBtn" class="chip">🖼 Generate Image</button>
+        </div>
+
+        <div class="composer">
+          <textarea id="input" maxlength="10000" placeholder="Say something to your character..."></textarea>
+          <button id="sendBtn" class="send">➤</button>
+        </div>
+        <div class="tiny"><span id="mode">Local demo</span> · <span id="counter">0/10000</span></div>
+      </div>
+    </section>
+
+    <aside class="panel settings">
+      <div class="sectionTitle">Character State</div>
+      <div id="statePanel"></div><div class="sectionTitle" style="margin-top:18px">Long-Term Memory</div><div id="memoryList" class="memoryList"></div>
+    </aside>
+  </main>
+</div>
+
+<dialog id="editor">
+  <form method="dialog" id="editorForm">
+    <div class="modalHead"><h2>Create Character</h2><button class="close">×</button></div>
+    <label>Name<input id="fName" required maxlength="60" placeholder="e.g. Aria"></label>
+    <label>Gender
+      <select id="fGender"><option>Female</option><option>Male</option><option>Non-binary</option></select>
+    </label>
+    <label>Genre
+      <select id="fGenre"><option>Fantasy</option><option>Isekai</option><option>Romance</option><option>Dark Fantasy</option><option>Horror</option><option>Action</option><option>Sci-Fi</option><option>School</option><option>Adventure</option></select>
+    </label>
+    <label>Personality<textarea id="fPersonality" placeholder="Kind, sarcastic, brave, secretive..."></textarea></label>
+    <label>Backstory<textarea id="fBackstory" placeholder="Who are they? What do they want?"></textarea></label>
+    <label>Starting HP<input id="fHp" type="number" min="1" max="999999" value="100"></label>
+    <label>Maturity
+      <select id="fMaturity"><option>Teen</option><option selected>Mature</option><option>Dark</option></select>
+    </label>
+    <button class="primary full" type="submit">Create</button>
+  </form>
+</dialog>
+
+<div id="toast" class="toast hidden"></div><script src="/app.js"></script>
+</body>
+</html>
